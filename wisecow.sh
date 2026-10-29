@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 SRVPORT=4499
+export PATH="$PATH:/usr/games"
 RSPFILE=response
 
 rm -f $RSPFILE
