@@ -1,4 +1,3 @@
-cat > .github/workflows/ci.yml <<'EOF'
 name: Wisecow Docker CI
 
 on:
@@ -44,5 +43,3 @@ jobs:
         run: |
           kubectl set image deployment/wisecow wisecow=sumajawisecow/wisecow:latest
           kubectl rollout status deployment/wisecow --timeout=120s
-EOF
-   
