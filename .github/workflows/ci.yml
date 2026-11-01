@@ -1,4 +1,5 @@
-name: Wisecow CI Pipeline
+cat > .github/workflows/ci.yml <<'EOF'
+name: Wisecow Docker CI
 
 on:
   push:
@@ -26,4 +27,6 @@ jobs:
           context: .
           push: false
           tags: wisecow:latest
+EOF
+
 
