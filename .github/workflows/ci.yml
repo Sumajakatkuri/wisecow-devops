@@ -1,3 +1,4 @@
+cat > .github/workflows/ci.yml <<'EOF'
 name: Wisecow Docker CI
 
 on:
@@ -12,7 +13,6 @@ jobs:
   build:
     name: Build and Push Wisecow Docker Image
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -32,4 +32,17 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name == 'push' }}
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/wisecow:latest
+          tags: sumajawisecow/wisecow:latest
+
+  deploy:
+    name: Deploy to Minikube
+    needs: build
+    if: github.event_name == 'push'
+    runs-on: self-hosted
+    steps:
+      - name: Update Kubernetes deployment
+        run: |
+          kubectl set image deployment/wisecow wisecow=sumajawisecow/wisecow:latest
+          kubectl rollout status deployment/wisecow --timeout=120s
+EOF
+   
