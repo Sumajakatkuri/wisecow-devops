@@ -12,6 +12,7 @@ jobs:
   build:
     name: Build and Push Wisecow Docker Image
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,6 +39,7 @@ jobs:
     needs: build
     if: github.event_name == 'push'
     runs-on: self-hosted
+
     steps:
       - name: Update Kubernetes deployment
         run: |
